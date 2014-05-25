@@ -21,8 +21,10 @@ Template.postItem.helpers({
     var post = _.extend({}, Positions.findOne({postId: this._id}), this);
     var newPosition = post._rank * POST_HEIGHT;
     var attributes = {};
-    if (! _.isUndefined(post.position)) {
-      var offset = post.position - newPosition;      
+    if (_.isUndefined(post.postition)) {
+      attributes.class = 'post invisible';
+    } else {
+      var delta` = post.position - newPosition;      
       attributes.style = "top: " + offset + "px";
       if (offset === 0)
         attributes.class = "post animate"
