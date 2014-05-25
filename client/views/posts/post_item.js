@@ -37,6 +37,9 @@ var POST_HEIGHT = 80;
       });
       
       return attributes;
+    },    
+    postUrl: function(){
+      return this.shortUrl ? this.shortUrl : this.url;
     }
   });
   
