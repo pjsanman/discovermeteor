@@ -17,7 +17,7 @@ Meteor.methods({
     // ensure the user is logged in
     if (!user)
       throw new Meteor.Error(401, "You need to login to post new stories");
-
+    
     // ensure the post has a title
     if (!postAttributes.title)
       throw new Meteor.Error(422, 'Please fill in a headline');
@@ -43,15 +43,14 @@ Meteor.methods({
   },
   upvote: function(postId) {
     var user = Meteor.user();
+   
     // ensure the user is logged in
     if (!user)
       throw new Meteor.Error(401, "You need to login to upvote");
-    var post = Posts.findOne(postId);
-    if (!post)
-      throw new Meteor.Error(422, 'Post not found');
-    if (_.include(post.upvoters, user._id))
-      throw new Meteor.Error(422, 'Already upvoted this post');
-    Posts.update(post._id, {
+    Posts.update({
+      _id: postId,
+      upvoters: {$ne: user._id}
+    }, {
       $addToSet: {upvoters: user._id},
       $inc: {votes: 1}
     });
