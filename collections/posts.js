@@ -35,6 +35,7 @@ Meteor.methods({
       author: user.username, 
       submitted: new Date().getTime(),
       commentsCount: 0,
+      upvoters: [], votes: 0
     });
 
     // shorten link URL
