@@ -37,6 +37,13 @@ Meteor.methods({
       commentsCount: 0,
     });
 
+    // shorten link URL
+    if(!this.isSimulation){
+      var shortUrl = Bitly.shortenURL(post.url);
+      if(post.url && shortUrl)
+         post.shortUrl = shortUrl;
+    }
+
     var postId = Posts.insert(post);
 
     return postId;
